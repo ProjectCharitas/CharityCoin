@@ -1,0 +1,8 @@
+#Mine litecoin using central processing unit? (true/false)
+cpu: true
+
+#Mine litecoin using graphics processing unit? (true/false)
+gpu: true
+
+#CharityCoin wallet address (LTC)
+wallet: ltc1qwz4dyed3sx999y55qry0yaxh07ss9ns92v46j9

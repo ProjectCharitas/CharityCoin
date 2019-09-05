@@ -1,0 +1,10 @@
+bin/
+stats/
+logs/
+wrapper/
+downloads/
+*.zip
+*.7z
+*.rar
+~*.dll
+Config.txt
