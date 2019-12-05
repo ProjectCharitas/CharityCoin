@@ -1,0 +1,4 @@
+RemoveLogs
+ResetBenchmark
+ResetPowerUsage
+ResetProfit
