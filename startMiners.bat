@@ -1,1 +1,0 @@
-MultiPoolMiner/CharityCoinCGPU.bat ltc1qwz4dyed3sx999y55qry0yaxh07ss9ns92v46j9 
