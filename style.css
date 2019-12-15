@@ -1,0 +1,138 @@
+body {
+    /*background-image: url("BGCC.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    
+    background-image: radial-gradient(white,lightgray,darkgray)
+    */
+    background-image: radial-gradient(#9de3fb,#6cd6f9,#0895c4);
+    display: flexbox;
+}
+
+#headerBar {
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    float: right;
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+    align-content: center;
+   /* border: 1px solid gold;*/
+}
+
+#headerBarItem {
+    margin-left: 5px;
+    margin-right: 15px;
+    margin-top: 5px;
+    padding: 0px;
+    height: 22px;
+    border-bottom: 1px solid black;
+    float: right;
+}
+
+#headerBarItem a {
+    margin: 0;
+    font-size: 15px;
+    font-family: Montserrat;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+
+}
+
+#MainText {
+    width: 100%;
+    text-align: center;
+    align-content: center;
+    vertical-align: center;
+    padding-top:145px;
+    /*border: 1px solid black;*/
+    position: relative;
+    z-index: -1;
+}
+
+#MainText h2 {
+    display: inline-block;
+    margin: auto;
+    font-size: 22px;
+    font-family: Montserrat;
+    color: #444444;
+    margin-bottom: 2px;
+    padding: 0px;
+}
+#MainText h1 {
+    display: inline-block;
+    font-size: 48px;
+    font-weight: bold;
+    font-family: Montserrat;
+    color: black;
+    padding: 0px;
+    margin-top: 0px;
+}
+
+#MainButtons {
+    width: 800px;
+    margin-left: 25px;
+    margin-right: 25px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+    display: table-cell;
+    border: 2px solid red;
+}
+
+#Button {
+
+    position: absolute;
+    width: 130px;
+    height: 150px;
+    border: 2px solid gray;
+    border-radius: 5%;
+}
+
+#Button.left {
+    left: 130px;
+    top: 295px;
+}
+
+#Button.center {
+    width: 170px;
+    left: 315px;
+    top: 295px;
+}
+
+#Button.right {
+    left: 540px;
+    top: 295px;
+}
+
+#Button p {
+    top: 0px;
+    text-align: center;
+    font-weight: bold;
+    font-family: Poppins;
+    color: #454545;
+    width: 100%;
+    left: 10px;
+    height: 25px;
+    font-size: 24px;
+    border: 1px solid lightgray;
+    margin: 0px;
+    overflow: visible;
+}
+
+#Button p.center {
+    font-size: 24px;
+}
+
+#Button canvas {
+    width: 130px;
+    height: 100px;
+
+    margin: none;
+    padding: none;
+}
+
