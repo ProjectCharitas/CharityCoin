@@ -7,7 +7,7 @@ body {
     
     background-image: radial-gradient(white,lightgray,darkgray)
     */
-    background-image: radial-gradient(#9de3fb,#6cd6f9,#0895c4);
+    background-image: radial-gradient(#9de3fb,#1aa3ff,#005ce6);
     display: flexbox;
 }
 
@@ -87,26 +87,28 @@ body {
 #Button {
 
     position: absolute;
-    width: 130px;
-    height: 150px;
-    border: 2px solid gray;
-    border-radius: 5%;
+    width: 70px;
+    height: 60px;
+    border-radius: 4%;
+    background-color: none;
+    border: 3px solid #8bff59;
 }
 
 #Button.left {
     left: 130px;
-    top: 295px;
+    top: 335px;
 }
 
 #Button.center {
-    width: 170px;
-    left: 315px;
+    width: 155px;
+    height: 140px;
+    left: 332px;
     top: 295px;
 }
 
 #Button.right {
-    left: 540px;
-    top: 295px;
+    left: 600px;
+    top: 335px;
 }
 
 #Button p {
@@ -119,7 +121,6 @@ body {
     left: 10px;
     height: 25px;
     font-size: 24px;
-    border: 1px solid lightgray;
     margin: 0px;
     overflow: visible;
 }
@@ -128,10 +129,13 @@ body {
     font-size: 24px;
 }
 
-#Button canvas {
-    width: 130px;
-    height: 100px;
-
+#Button img {
+    width: 75px;
+    height: 75px;
+    align-content: center;
+    position: relative;
+    left: 40px;
+    top: 25px;
     margin: none;
     padding: none;
 }
