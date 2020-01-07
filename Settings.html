@@ -1,11 +1,44 @@
 <html>
+
 <head>
     <title>Charity Coin</title>
-    <script type="text/javascript" src="display.js"></script>
-    <link rel="stylesheet" type="text/css"href="style.css">
+    <script type="text/javascript" src="toggle.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
+
 <body>
-<p> ima goofy goober</p>
-    </body>
-    </html>
+    <div class="toggle">
+        <p class = "settings-item">CPU</p>
+        <label class="switch">
+            <input type="checkbox" id="cpu" onclick="toggle(this)">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    <div class="toggle">
+        <p class = "settings-item">GPU</p>
+        <label class="switch">
+            <input type="checkbox" id="gpu" onclick="toggle(this)">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <!-- DO NOT DO THIS PLEASE -->
+    <!-- 
+        basically to get settings to "save" I'm reading the state of options.json 
+        then changing the state of the buttons as the page loads and hoping no users click fast.
+        If we leave this in the final prod version I'm filing a lawsuit for gross negligence. 
+    -->
+    <script>
+        const options = require("./options.json");
+        if(options.gpu){
+            document.getElementById("gpu").checked = true
+        }
+        if(options.cpu){
+            document.getElementById("cpu").checked = true
+        }
+    </script>
+    <a class = "exit" onclick = "goback()" href = "MainApp.html">EXIT</div>
+</body>
+
+</html>
