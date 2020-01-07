@@ -1,2 +1,4 @@
 
 .vs/
+.node_modules/
+node_modules/electron/dist/resources/default_app.asar
