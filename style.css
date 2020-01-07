@@ -73,70 +73,8 @@ body {
     margin-top: 0px;
 }
 
-#MainButtons {
-    width: 800px;
-    margin-left: 25px;
-    margin-right: 25px;
-    height: 50px;
-    text-align: center;
-    position: relative;
-    display: table-cell;
-    border: 2px solid red;
-}
-
-#Button {
-
+#mine-button{
     position: absolute;
-    width: 70px;
-    height: 60px;
-    border-radius: 4%;
-    background-color: none;
-    border: 3px solid #8bff59;
+    left: 335px;
+    bottom: 120px;
 }
-
-#Button.left {
-    left: 130px;
-    top: 335px;
-}
-
-#Button.center {
-    width: 155px;
-    height: 140px;
-    left: 332px;
-    top: 295px;
-}
-
-#Button.right {
-    left: 600px;
-    top: 335px;
-}
-
-#Button p {
-    top: 0px;
-    text-align: center;
-    font-weight: bold;
-    font-family: Poppins;
-    color: #454545;
-    width: 100%;
-    left: 10px;
-    height: 25px;
-    font-size: 24px;
-    margin: 0px;
-    overflow: visible;
-}
-
-#Button p.center {
-    font-size: 24px;
-}
-
-#Button img {
-    width: 75px;
-    height: 75px;
-    align-content: center;
-    position: relative;
-    left: 40px;
-    top: 25px;
-    margin: none;
-    padding: none;
-}
-

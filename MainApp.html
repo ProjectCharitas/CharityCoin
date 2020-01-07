@@ -1,8 +1,7 @@
 <html>
 <head>
     <title>Charity Coin</title>
-    <script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="display.js"></script>
+    <script type="text/javascript" src="miner.js"></script>
     <link rel="stylesheet" type="text/css"href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -30,27 +29,7 @@
         <!--<button onclick="startMiningClicked(event)" data-count="1" style="color:black">Start Mining</button>
         -->
     </div>
-    
-    <div id="Button" class="left">
-        <p>
-            CPU
-        </p>
-       
-    </div>
-    <div id="Button" class="center">
-        <p onclick="minerClicked(this)">
-            Start Mining
-        </p>
-        <img src="Play.png"></img>
-    </div>
-    <div id="Button" class="right">
-        <p>
-            GPU
-        </p>
 
-        
-    </div>
-
-
+    <img class = "start" height = "100px" width = "100px" id = "mine-button" src = "play.png" onclick = "clicked(this)"/>
 </body>
 </html>
