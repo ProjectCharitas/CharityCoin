@@ -4,11 +4,15 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "electron ."
+    "build": "cd ./GUI/ && node build.js && electron ./release/main.js"
   },
   "author": "Jah",
   "license": "ISC",
   "dependencies": {
-    "electron": "^7.1.7"
+    "electron": "^7.1.8"
+    
+  },
+  "devDependencies": {
+    "node-minify": "^3.6.0"
   }
 }

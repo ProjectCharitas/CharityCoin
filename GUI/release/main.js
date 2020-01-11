@@ -1,0 +1,2 @@
+var electron=require("electron"),$jscomp$destructuring$var0=require("electron"),app=$jscomp$destructuring$var0.app,BrowserWindow=$jscomp$destructuring$var0.BrowserWindow,createWindow=function(){var a=new BrowserWindow({width:800,height:600,resizable:!0,webPreferences:{nodeIntegration:!0}});a.loadFile("MainApp.html");a.on("closed",function(){a=null})};app.on("ready",createWindow);app.on("window-all-closed",function(){"darwin"!==process.platform&&app.quit()});
+app.on("activate",function(){null===win&&createWindow()});

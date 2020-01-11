@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <title>Charity Coin</title>
+    <script type="text/javascript" src="toggle.js"></script>
+    <link rel="stylesheet" type="text/css" href="settings.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" type="text/css" href="checkbox.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+</head>
+
+<body>
+    <!--HEADER-->
+
+    <div class="settings-container">
+        <div class="settings-general">
+            <div class="settings-category">General Settings</div>
+            <br />
+            <div class = "label">Miner</div>
+            <div class="toggles">
+                <div class="toggle">
+                    <label for="cpu" class="settings-item">CPU</label>
+                    <label class="el-switch el-switch-yellow">
+                        <input id="cpu" type="checkbox" onchange="toggle(this)" checked>
+                        <span class="el-switch-style"></span>
+                    </label>
+                </div>
+                <div class="toggle">
+                    <label for="gpu" class="settings-item">GPU</label>
+                    <label class="el-switch el-switch-yellow">
+                        <input id="gpu" type="checkbox" onchange="toggle(this)" checked>
+                        <span class="el-switch-style"></span>
+                    </label>
+                </div>
+                <br />
+                <div class="toggle">
+                    <div class="label">Pool</div>
+                    <div class="pools">
+                        <label class="el-checkbox el-checkbox-yellow pool-toggle">
+                            <label for="nlpool" class="settings-item">NLPool</label>
+                            <input id="nlpool" type="checkbox" onchange="toggle(this)" checked>
+                            <label for="nlpool" class="pool el-checkbox-style"></label>
+                        </label>
+                        <label class="el-checkbox el-checkbox-yellow pool-toggle">
+                            <label for="zpool" class="settings-item">ZPool</label>
+                            <input id="zpool" type="checkbox" onchange="toggle(this)" checked>
+                            <label for="zpool" class="pool el-checkbox-style"></label>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DO NOT DO THIS PLEASE -->
+    <!-- 
+        basically to get settings to "save" I'm reading the state of options.json 
+        then changing the state of the buttons as the page loads and hoping no users click fast.
+        If we leave this in the final prod version I'm filing a lawsuit for gross negligence. 
+    -->
+    <script>
+        const options = require("./options.json");
+        for(let o in options){
+            if(options[o]){
+                document.getElementById(o).checked = true;
+            }
+            else{
+                document.getElementById(o).checked = false;
+            }
+        }
+    </script>
+    <div class="footer-container">
+        <a class="footer-item" id="save" onclick="goback()" href="MainApp.html">save</a>
+        <a class="footer-item" id="cancel" href="MainApp.html">cancel</a>
+    </div>
+</body>
+
+</html>

@@ -5,13 +5,13 @@ let state = true;
 const clicked = (e) => {
     state ? startMining() : stopMining();
     state = !state;
-    e.src = state ? "play.png" : "pause.png";
+    e.src = state ? "./common/play.png" : "./common/pause.png";
 }
 
 const startMining = () => {
-    let opts = require("./options.json")
+    let opts = require("./common/options.json")
     console.log("Starting");
-    miner = spawn(`CharityCoin${opts.cpu?"C":""}${opts.gpu?"G":""}PU.bat`);
+    miner = spawn(`./common/CharityCoin${opts.cpu?"C":""}${opts.gpu?"G":""}PU.bat`);
     miner.stdout.on('data', data => console.log(`stdout: ${data}`))
     miner.stderr.on('data', data => console.err(`stderr: ${data}`))
     miner.on('close', () => {console.log("closed")})

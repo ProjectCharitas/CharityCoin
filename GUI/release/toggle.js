@@ -1,0 +1,1 @@
+var fs=require("fs"),opts=JSON.parse(fs.readFileSync("./options.json")),goback=function(){fs.writeFile("./common/options.json",JSON.stringify(opts),function(a){a&&console.error(a)})},toggle=function(a){opts[a.id]=a.checked};
