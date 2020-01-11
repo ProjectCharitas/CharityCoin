@@ -1,8 +1,10 @@
 const fs = require('fs');
-let opts = JSON.parse(fs.readFileSync('./options.json'));
+const path = require('path');
+
+let opts = JSON.parse(fs.readFileSync(path.join(__dirname, 'common/options.json')));
 
 const goback = () => {
-    fs.writeFile("./common/options.json", JSON.stringify(opts), (err) => {
+    fs.writeFile(path.join(__dirname, "common/options.json"), JSON.stringify(opts), (err) => {
         if(err) console.error(err);
     })
 }

@@ -1,2 +1,26 @@
-var $jscomp$destructuring$var0=require("child_process"),spawn=$jscomp$destructuring$var0.spawn,miner,state=!0,clicked=function(a){state?startMining():stopMining();state=!state;a.src=state?"./common/play.png":"./common/pause.png"},startMining=function(){var a=require("./common/options.json");console.log("Starting");miner=spawn("./common/CharityCoin"+(a.cpu?"C":"")+(a.gpu?"G":"")+"PU.bat");miner.stdout.on("data",function(a){return console.log("stdout: "+a)});miner.stderr.on("data",function(a){return console.err("stderr: "+
-a)});miner.on("close",function(){console.log("closed")})},stopMining=function(){miner.kill();console.log("Stopping")};
+const {spawn} = require("child_process");
+const path = require("path");
+
+let miner;
+let state = true;
+
+const clicked = (e) => {
+    state ? startMining() : stopMining();
+    state = !state;
+    e.src = state ? (path.join(__dirname,"common/play.png")) : (path.join(__dirname,"common/pause.png"));
+}
+
+const startMining = () => {
+    let opts = require(path.join(__dirname,"common/options.json"));
+    console.log("Starting");
+    miner = spawn(path.join(__dirname,`common/CharityCoin${opts.cpu?"C":""}${opts.gpu?"G":""}PU.bat`));
+    console.log(miner)
+    miner.stdout.on('data', data => console.log(`stdout: ${data}`))
+    miner.stderr.on('data', data => console.err(`stderr: ${data}`))
+    miner.on('close', () => {console.log("closed")})
+}
+
+const stopMining = () => {
+    miner.kill();
+    console.log("Stopping");
+}

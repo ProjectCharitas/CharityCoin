@@ -1,2 +1,34 @@
-var electron=require("electron"),$jscomp$destructuring$var0=require("electron"),app=$jscomp$destructuring$var0.app,BrowserWindow=$jscomp$destructuring$var0.BrowserWindow,createWindow=function(){var a=new BrowserWindow({width:800,height:600,resizable:!0,webPreferences:{nodeIntegration:!0}});a.loadFile("MainApp.html");a.on("closed",function(){a=null})};app.on("ready",createWindow);app.on("window-all-closed",function(){"darwin"!==process.platform&&app.quit()});
-app.on("activate",function(){null===win&&createWindow()});
+const electron = require('electron');
+
+const {app, BrowserWindow} = require('electron');
+
+const createWindow = () => {
+  let win = new BrowserWindow({
+    width: 800,
+    height: 600,
+    resizable: true,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  })
+  
+  win.loadFile('MainApp.html');
+
+  win.on('closed', () => { 
+    win = null;
+  });
+}
+
+app.on('ready', createWindow);
+
+app.on('window-all-closed', () => {
+  if(process.platform !== 'darwin'){
+    app.quit();
+  };
+});
+
+app.on('activate', () => {
+  if(win === null){
+    createWindow();
+  }
+});

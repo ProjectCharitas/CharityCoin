@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "build": "cd ./GUI/ && node build.js && electron ./release/main.js"
+    "start": "node ./build.js -t -m && electron ./GUI/release/main.js",
+    "test": "node ./build.js -t && electron ./GUI/release/main.js"
   },
   "author": "Jah",
   "license": "ISC",

@@ -60,7 +60,7 @@
         If we leave this in the final prod version I'm filing a lawsuit for gross negligence. 
     -->
     <script>
-        const options = require("./options.json");
+        const options = require("./common/options.json");
         for(let o in options){
             if(options[o]){
                 document.getElementById(o).checked = true;

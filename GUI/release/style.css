@@ -1,1 +1,21 @@
-.main{width:75%;display:inline-block;margin:12% 12.5% 0;font-family:Montserrat;text-align:center}.mission{font-size:1.8rem;color:#444}.name{font-size:3.3rem;font-weight:700}#mine-button{display:block;margin:0 auto}
+.main{
+  width: 75%;
+  display: inline-block;
+  margin: 12% 12.5% 0%;
+  font-family: Montserrat;
+  text-align: center;
+}
+
+.mission{
+  font-size: 1.8rem;
+  color: #444444;
+}
+
+.name{
+  font-size: 3.3rem;
+  font-weight: bold;
+}
+#mine-button{
+    display: block;
+    margin: 0 auto;
+}

@@ -1,1 +1,32 @@
-body{background-image:radial-gradient(#6fdbff,#1aa3ff,#005ce6)}.header-container{width:100%;text-align:center;height:.1%}.logo{float:left;width:auto;display:block}.links{display:block;float:right;width:auto;align-items:center;align-content:center}.link{font-size:1rem;color:#fff;font-family:Montserrat;text-decoration:none;margin:0 .4rem}
+body {
+  background-image: radial-gradient(#6fdbff, #1aa3ff, #005ce6);
+}
+
+.header-container {
+  width: 100%;
+  text-align: center;
+  height: 0.1%;
+  /*has to have a height or else it overlaps with the rest, but having an actual height pushes the page around too much */
+}
+
+.logo{
+  float: left;
+  width: auto;
+  display: block;
+}
+
+.links {
+  display: block;
+  float: right;
+  width: auto;
+  align-items: center;
+  align-content: center;
+}
+
+.link {
+  font-size: 1rem;
+  color: white;
+  font-family: Montserrat;
+  text-decoration: none;
+  margin: 0 0.4rem;
+}

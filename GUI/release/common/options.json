@@ -1,1 +1,1 @@
-{"cpu":true,"gpu":false,"nlpool":true,"zpool":false}
+{"cpu":true,"gpu":true,"nlpool":true,"zpool":true}
