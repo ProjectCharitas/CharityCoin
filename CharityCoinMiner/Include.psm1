@@ -69,13 +69,13 @@ function Update-APIDeviceStatus {
 
     $API.AllDevices | ForEach-Object { 
         if ($Devices.Name -contains $_.Name) { 
-            if ($Miner = $API.FailedMiners | Where-Object DeviceName -contains $_.Name) { $_ | Add-Member Status "Failed ($(($Miner.Name -Split '-' | Select-Object -First 2) -join '-') [$($Miner.Algorithm -join '; ')])" -Force }
+            if ($Miner = $API.FailedMiners | Where-Object DeviceName -contains $_.Name) { $_ | Add-Member Status "Failed ($($Miner.BaseName)-$($Miner.Version) {$(($Miner.Algorithm | ForEach-Object { "$($_)@$($Miner.PoolName | Select-Object -Index ([array]::indexof($Miner.Algorithm, $_)))" }) -join "; ")})" -Force }
             elseif ($Miner = $API.RunningMiners | Where-Object DeviceName -contains $_.Name) { 
                 if ($Miner.Speed -contains $null) { 
-                    $_ | Add-Member Status "Benchmarking ($(($Miner.Name -Split '-' | Select-Object -First 2) -join '-') [$($Miner.Algorithm -join '; ')])" -Force
+                    $_ | Add-Member Status "Benchmarking ($($Miner.BaseName)-$($Miner.Version) {$(($Miner.Algorithm | ForEach-Object { "$($_)@$($Miner.PoolName | Select-Object -Index ([array]::indexof($Miner.Algorithm, $_)))" }) -join "; ")})" -Force
                 }
                 else { 
-                    $_ | Add-Member Status "Running ($(($Miner.Name -Split '-' | Select-Object -First 2) -join '-') [$($Miner.Algorithm -join '; ')])" -Force
+                    $_ | Add-Member Status "Running ($($Miner.BaseName)-$($Miner.Version) {$(($Miner.Algorithm | ForEach-Object { "$($_)@$($Miner.PoolName | Select-Object -Index ([array]::indexof($Miner.Algorithm, $_)))" }) -join "; ")})" -Force
                 }
             }
             else { $_ | Add-Member Status "Idle" -Force }
@@ -304,7 +304,7 @@ function Get-PowerUsage {
             $Hashtable[(($_.Value -split ' ') | Select-Object -last 1)] = $RegistryValue.($_.Name -replace "Label", "Value")
         }
         $DeviceNames | ForEach-Object { 
-            $PowerUsage += [Float]($Hashtable.$_ -split ' ' | Select-Object -First 1)
+            $PowerUsage += [Float]($Hashtable.$_ -split ' ' | Select-Object -Index 0)
         }
     }
 
@@ -572,7 +572,7 @@ function Get-Stat {
                         Minute_10             = [Double]$Stat.Minute_10
                         Minute_10_Fluctuation = [Double]$Stat.Minute_10_Fluctuation
                         Hour                  = [Double]$Stat.Hour
-                        Hour_Fluctuation      = [Double]$Stat.Hour_FluctuationFFF
+                        Hour_Fluctuation      = [Double]$Stat.Hour_Fluctuation
                         Day                   = [Double]$Stat.Day
                         Day_Fluctuation       = [Double]$Stat.Day_Fluctuation
                         Week                  = [Double]$Stat.Week
@@ -621,7 +621,7 @@ function Get-ChildItemContent {
     $DefaultPriority = ([System.Diagnostics.Process]::GetCurrentProcess()).PriorityClass
     if ($Priority) { ([System.Diagnostics.Process]::GetCurrentProcess()).PriorityClass = $Priority }
 
-    if ($Parameters.JobName) { $JobName = $Parameters.JobName } else { $JobName = "JobName" }
+    if ($Parameters.JobName) { $JobName = $Parameters.JobName } else { $JobName = "JobName" } #temp fix
 
     $Job = Start-Job -InitializationScript ([scriptblock]::Create("Set-Location('$(Get-Location)')")) -Name $JobName -ScriptBlock { 
         param(
@@ -637,7 +637,7 @@ function Get-ChildItemContent {
 
         function Invoke-ExpressionRecursive ($Expression) { 
             if ($Expression -is [String]) { 
-                if ($Expression -match '^\$[A-Za-z]') { 
+                if ($Expression -match '\$') { 
                     try { $Expression = Invoke-Expression $Expression }
                     catch { $Expression = Invoke-Expression "`"$Expression`"" }
                 }
@@ -876,19 +876,34 @@ function Expand-WebRequest {
     # Set current path used by .net methods to the same as the script's path
     [Environment]::CurrentDirectory = $ExecutionContext.SessionState.Path.CurrentFileSystemLocation
 
-    if (-not $Path) { $Path = Join-Path ".\Downloads" ([IO.FileInfo](Split-Path $Uri -Leaf)).BaseName }
     if (-not (Test-Path ".\Downloads" -PathType Container)) { New-Item "Downloads" -ItemType "directory" | Out-Null }
-    $FileName = Join-Path ".\Downloads" (Split-Path $Uri -Leaf)
+    $FileName_Leaf = Split-Path $Uri -Leaf
+    [IO.Path]::GetInvalidFileNameChars() | ForEach-Object { $FileName_Leaf = $FileName_Leaf.Replace($_, '-') }
+    $FileName = Join-Path ".\Downloads" $FileName_Leaf
 
     if (Test-Path $FileName -PathType Leaf) { Remove-Item $FileName }
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    Invoke-WebRequest $Uri -OutFile $FileName -UseBasicParsing
+    $Response = Invoke-WebRequest $Uri -OutFile $FileName -UseBasicParsing -PassThru
 
-    if (".msi", ".exe" -contains ([IO.FileInfo](Split-Path $Uri -Leaf)).Extension) { 
+    $FileName_Fix = $Response.Headers.'Content-Disposition' -split '=' -replace '"' | Select-Object -Index 1
+
+    if ($FileName_Fix -is [String]) { 
+        try { 
+            [IO.Path]::GetInvalidFileNameChars() | ForEach-Object { $FileName_Fix = $FileName_Fix.Replace($_, '-') }
+            Rename-Item $FileName $FileName_Fix -Force -ErrorAction Stop
+            $FileName = Join-Path ".\Downloads" $FileName_Fix
+        }
+        catch { 
+        }
+    }
+
+    if (-not $Path) { $Path = Join-Path ".\Downloads" ([IO.FileInfo](Split-Path $FileName -Leaf)).BaseName }
+
+    if (".msi", ".exe" -contains ([IO.FileInfo](Split-Path $FileName -Leaf)).Extension) { 
         Start-Process $FileName "-qb" -Wait
     }
     else { 
-        $Path_Old = (Join-Path (Split-Path (Split-Path $Path)) ([IO.FileInfo](Split-Path $Uri -Leaf)).BaseName)
+        $Path_Old = (Join-Path (Split-Path (Split-Path $Path)) ([IO.FileInfo](Split-Path $FileName -Leaf)).BaseName)
         $Path_New = Split-Path $Path
 
         if (Test-Path $Path_Old -PathType Container) { Remove-Item $Path_Old -Recurse -Force }
@@ -897,11 +912,11 @@ function Expand-WebRequest {
         if (Test-Path $Path_New -PathType Container) { Remove-Item $Path_New -Recurse -Force }
 
         #use first (topmost) directory in case, e.g. ClaymoreDual_v11.9, contain multiple miner binaries for different driver versions in various sub dirs
-        $Path_Old = (Get-ChildItem $Path_Old -File -Recurse | Where-Object { $_.Name -EQ $(Split-Path $Path -Leaf) }).Directory | Select-Object -First 1
+        $Path_Old = (Get-ChildItem $Path_Old -File -Recurse | Where-Object { $_.Name -EQ $(Split-Path $Path -Leaf) }).Directory | Select-Object -Index 0
 
         if ($Path_Old) { 
             Move-Item $Path_Old $Path_New -PassThru | ForEach-Object -Process { $_.LastWriteTime = Get-Date }
-            $Path_Old = (Join-Path (Split-Path (Split-Path $Path)) ([IO.FileInfo](Split-Path $Uri -Leaf)).BaseName)
+            $Path_Old = (Join-Path (Split-Path (Split-Path $Path)) ([IO.FileInfo](Split-Path $FileName -Leaf)).BaseName)
             if (Test-Path $Path_Old -PathType Container) { Remove-Item $Path_Old -Recurse -Force }
         }
         else { 
@@ -962,7 +977,7 @@ function Get-Device {
         $DeviceList = Get-Content "Devices.txt" | ConvertFrom-Json
         $Name_Devices = $Name | ForEach-Object { 
             $Name_Split = $_ -split '#'
-            $Name_Split = @($Name_Split | Select-Object -First 1) + @($Name_Split | Select-Object -Skip 1 | ForEach-Object { [Int]$_ })
+            $Name_Split = @($Name_Split | Select-Object -Index 0) + @($Name_Split | Select-Object -Skip 1 | ForEach-Object { [Int]$_ })
             $Name_Split += @("*") * (100 - $Name_Split.Count)
 
             $Name_Device = $DeviceList.("{0}" -f $Name_Split) | Select-Object *
@@ -976,7 +991,7 @@ function Get-Device {
         if (-not $DeviceList) { $DeviceList = Get-Content "Devices.txt" | ConvertFrom-Json }
         $ExcludeName_Devices = $ExcludeName | ForEach-Object { 
             $ExcludeName_Split = $_ -split '#'
-            $ExcludeName_Split = @($ExcludeName_Split | Select-Object -First 1) + @($ExcludeName_Split | Select-Object -Skip 1 | ForEach-Object { [Int]$_ })
+            $ExcludeName_Split = @($ExcludeName_Split | Select-Object -Index 0) + @($ExcludeName_Split | Select-Object -Skip 1 | ForEach-Object { [Int]$_ })
             $ExcludeName_Split += @("*") * (100 - $ExcludeName_Split.Count)
 
             $ExcludeName_Device = $DeviceList.("{0}" -f $ExcludeName_Split) | Select-Object *
@@ -1357,7 +1372,7 @@ function Add-Object {
                 $Object_Old = $Object_Old | Where-Object -Property $_ -EQ -Value ($Object_Temp | Select-Object -ExpandProperty $_)
             }
 
-            $Object = $Object_Old | Select-Object -First 1
+            $Object = $Object_Old | Select-Object -Index 0
 
             if ($Object) { 
                 $Object | Get-Member -MemberType Properties | Select-Object -ExpandProperty Name | ForEach-Object { 
@@ -1376,7 +1391,7 @@ function Add-Object {
             $Object_New = $Object_New | Where-Object -Property $_ -EQ -Value ($Object_Temp | Select-Object -ExpandProperty $_)
         }
 
-        $Object = $Object_New | Select-Object -First 1
+        $Object = $Object_New | Select-Object -Index 0
 
         if ($Object) { $ReferenceObject += $Object }
     }
@@ -1477,6 +1492,8 @@ class Miner {
 
         $this.New = $true
         $this.Activated++
+        $this.Intervals = @()
+        $this.StatusMessage = ""
 
         if ($this.Process) { 
             if ($this.Process | Get-Job -ErrorAction SilentlyContinue) { 
@@ -1848,7 +1865,7 @@ class Download {
             param($Uri, $DownloadFilePath)
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
             $Download = Invoke-WebRequest $Uri
-            $Download_FileName = [String]($Download.Headers["Content-Disposition"] -Split '; ' | ForEach-Object { [PSCustomObject]@{($_ -Split '=')[0] = ($_ -Split '=')[1] } } | Where-Object filename | Select-Object -First 1 -ExpandProperty filename)
+            $Download_FileName = [String]($Download.Headers["Content-Disposition"] -split '; ' | ForEach-Object { [PSCustomObject]@{($_ -split '=')[0] = ($_ -split '=')[1] } } | Where-Object filename | Select-Object -Index 0 -ExpandProperty filename)
             [System.IO.File]::WriteAllBytes((Join-Path $DownloadFilePath $Download_FileName), $Download.Content)
         } -ArgumentList $this.Uri.AbsoluteUri, $this.DownloadFilePath.AbsolutePath
 
