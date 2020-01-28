@@ -5,7 +5,6 @@
  if %errorlevel% == 0 (
     goto :run
  ) else (
-    echo Requesting administrative privileges...
     goto :UACPrompt
  )
 
@@ -37,7 +36,7 @@
 
    if exist ".\SnakeTail.exe" goto SNAKETAIL
 
-   start pwsh -noexit -executionpolicy bypass -command "& .\reader.ps1 -log 'MultiPoolMiner_\d\d\d\d-\d\d-\d\d\.txt' -sort '^[^_]*_' -quickstart"
+   start /min /belownormal pwsh -noexit -executionpolicy bypass -command "& .\reader.ps1 -log 'MultiPoolMiner_\d\d\d\d-\d\d-\d\d\.txt' -sort '^[^_]*_' -quickstart"
    goto MINING
 
    :SNAKETAIL
@@ -45,7 +44,7 @@
    if "%ERRORLEVEL%"=="1" start /min .\SnakeTail.exe .\MPM_SnakeTail_LogReader.xml
 
    :MINING
-   pwsh -noexit -executionpolicy bypass -windowstyle minimized -command "%command%"
+   start /min /belownormal pwsh -noexit -executionpolicy bypass -windowstyle minimized -command "%command%"
    exit /b
 
  :UACPrompt
