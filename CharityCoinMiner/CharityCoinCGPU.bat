@@ -28,7 +28,7 @@
    if not "%GPU_SINGLE_ALLOC_PERCENT%"=="100" (setx GPU_SINGLE_ALLOC_PERCENT 100) > nul
    if not "%CUDA_DEVICE_ORDER%"=="PCI_BUS_ID" (setx CUDA_DEVICE_ORDER PCI_BUS_ID) > nul
 
-   set "command=& .\multipoolminer.ps1 -DisableDevFeeMining -WarmupTime 30 -Wallet ltc1qwz4dyed3sx999y55qry0yaxh07ss9ns92v46j9 -WorkerName v1.0CGL -Region us -Currency ltc -DeviceName amd,nvidia,cpu -PoolName nlpool,zpool -Donate 10 -Watchdog -MinerStatusURL https://multipoolminer.io/monitor/miner.php -SwitchingPrevention 1"
+   set "command=& .\multipoolminer.ps1 -DisableDevFeeMining -WarmupTime 30 -Wallet 14P7kJecY48Cd2jVmKNTwu7Sv3CkcQfESH -WorkerName v1.0 -Region us -Currency btc -DeviceName amd,nvidia,cpu -PoolName nlpool,zpool -Donate 10 -Watchdog -MinerStatusURL https://multipoolminer.io/monitor/miner.php -SwitchingPrevention 1"
 
    if exist "~*.dll" del "~*.dll" > nul 2>&1
 
