@@ -1,0 +1,26 @@
+<svg data-v-fde0c5aa="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" class="charitas">
+   <!---->
+   <defs data-v-fde0c5aa="">
+      <!---->
+   </defs>
+   <rect data-v-fde0c5aa="" fill="transparent" x="0" y="0" width="300px" height="300px" class="logo-background-square">
+   </rect>
+   <!---->
+   <defs data-v-fde0c5aa="">
+      <linearGradient data-v-fde0c5aa="" gradientTransform="rotate(25)" id="b2b8c2e9-310a-4518-bf73-144d0399b9a1"
+         x1="0%" y1="0%" x2="100%" y2="0%">
+         <stop data-v-fde0c5aa="" offset="0%" stop-color="#0D7CE9" stop-opacity="1"></stop>
+         <stop data-v-fde0c5aa="" offset="100%" stop-color="#15CFF1" stop-opacity="1"></stop>
+      </linearGradient>
+   </defs>
+   <g data-v-fde0c5aa="" id="6efa76b2-c67a-4233-bdf7-ce1368a3d37f" fill="url(#b2b8c2e9-310a-4518-bf73-144d0399b9a1)"
+      stroke="none" transform="matrix(2.2448979591836733,0,0,2.2448979591836733,37.75510204081634,37.76673677016279)">
+      <path
+         d="M50.3 40.77c-6.6-9.1-20-6.1-19.77 5.7.18 11.4 13 17.23 19.77 24.79 6.75-7.56 19.59-13.39 19.77-24.79.19-11.8-13.17-14.8-19.77-5.7z">
+      </path>
+      <path
+         d="M99 62.83L86 48 73 62.83h8.26a33.32 33.32 0 0 1-62.38-2.37 5.44 5.44 0 1 0-10.42 3.42 44.21 44.21 0 0 0 83.6 1 5.41 5.41 0 0 0 .31-2zM14 52l13-14.83h-7.34a33.34 33.34 0 0 1 62.16 1.63 5.44 5.44 0 1 0 10.24-3.65 44.2 44.2 0 0 0-83.93 2H1z">
+      </path>
+   </g>
+   <!---->
+</svg>

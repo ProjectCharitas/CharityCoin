@@ -1,0 +1,27 @@
+body {
+   background-image: radial-gradient(#f5f5f5, #eef5ff, #d4e4fd);
+}
+
+*{
+   color: black;
+}
+
+.mission{
+   color: #444444;
+}
+
+.link {
+  color: black;
+}
+
+#save {
+   text-shadow: 0.1rem 0.1rem green;
+ }
+ 
+ #cancel {
+   text-shadow: 0.1rem 0.1rem red;
+}
+
+.home-button{
+   fill: black;
+}

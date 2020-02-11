@@ -56,14 +56,6 @@
   color: white;
 }
 
-/* #save {
-  text-shadow: 0.1rem 0.1rem green;
-}
-
-#cancel {
-  text-shadow: 0.1rem 0.1rem red;
-} */
-
-#save, #cancel{
-  text-shadow: 0.1rem 0.1rem black
+.el-switch-black>input[type="checkbox"]:checked+.el-switch-style{
+  background-color: black !important;
 }

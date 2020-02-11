@@ -1,5 +1,5 @@
-body {
-  background-image: radial-gradient(#6fdbff, #1aa3ff, #005ce6);
+*{
+  user-select: none;
 }
 
 .header-container {
@@ -9,7 +9,7 @@ body {
   /*has to have a height or else it overlaps with the rest, but having an actual height pushes the page around too much */
 }
 
-.logo{
+.logo {
   float: left;
   width: auto;
   display: block;
@@ -25,7 +25,6 @@ body {
 
 .link {
   font-size: 1rem;
-  color: white;
   font-family: Montserrat;
   text-decoration: none;
   margin: 0 0.4rem;

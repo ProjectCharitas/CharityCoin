@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="checkbox.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link id="theme" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -17,37 +18,52 @@
         <div class="settings-general">
             <div class="settings-category">General Settings</div>
             <br />
-            <div class = "label">Miner</div>
-            <div class="toggles">
-                <div class="toggle">
-                    <label for="cpu" class="settings-item">CPU</label>
-                    <label class="el-switch el-switch-yellow">
-                        <input id="cpu" type="checkbox" onchange="toggle(this)" checked>
-                        <span class="el-switch-style"></span>
-                    </label>
+            <div class="group">
+                <div class="label">Miner</div>
+                <div class="toggles">
+                    <div class="toggle">
+                        <label for="cpu" class="settings-item">CPU</label>
+                        <label class="el-switch el-switch-blue">
+                            <input id="cpu" type="checkbox" onchange="toggle(this)" checked>
+                            <span class="el-switch-style"></span>
+                        </label>
+                    </div>
+                    <div class="toggle">
+                        <label for="gpu" class="settings-item">GPU</label>
+                        <label class="el-switch el-switch-blue">
+                            <input id="gpu" type="checkbox" onchange="toggle(this)" checked>
+                            <span class="el-switch-style"></span>
+                        </label>
+                    </div>
                 </div>
+            </div>
+            <br />
+            <div class="group">
+                <div class="label">Pool</div>
                 <div class="toggle">
-                    <label for="gpu" class="settings-item">GPU</label>
-                    <label class="el-switch el-switch-yellow">
-                        <input id="gpu" type="checkbox" onchange="toggle(this)" checked>
-                        <span class="el-switch-style"></span>
-                    </label>
-                </div>
-                <br />
-                <div class="toggle">
-                    <div class="label">Pool</div>
                     <div class="pools">
-                        <label class="el-checkbox el-checkbox-yellow pool-toggle">
+                        <label class="el-checkbox el-checkbox-blue pool-toggle">
                             <label for="nlpool" class="settings-item">NLPool</label>
                             <input id="nlpool" type="checkbox" onchange="toggle(this)" checked>
                             <label for="nlpool" class="pool el-checkbox-style"></label>
                         </label>
-                        <label class="el-checkbox el-checkbox-yellow pool-toggle">
+                        <label class="el-checkbox el-checkbox-blue pool-toggle">
                             <label for="zpool" class="settings-item">ZPool</label>
                             <input id="zpool" type="checkbox" onchange="toggle(this)" checked>
                             <label for="zpool" class="pool el-checkbox-style"></label>
                         </label>
                     </div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="label">Theme</div>
+                <div class="toggle">
+                    <label for="dark" class="settings-item">Light</label>
+                    <label class="el-switch el-switch-black">
+                        <input id="dark" type="checkbox" onchange="toggle(this); load();">
+                        <span class="el-switch-style"></span>
+                    </label>
+                    <label style="margin-left: 4%" for="dark" class="settings-item">Dark</label>
                 </div>
             </div>
         </div>
@@ -61,11 +77,10 @@
     -->
     <script>
         const options = require("./common/options.json");
-        for(let o in options){
-            if(options[o]){
+        for (let o in options) {
+            if (options[o]) {
                 document.getElementById(o).checked = true;
-            }
-            else{
+            } else {
                 document.getElementById(o).checked = false;
             }
         }
@@ -74,6 +89,7 @@
         <a class="footer-item" id="save" onclick="goback()" href="MainApp.html">save</a>
         <a class="footer-item" id="cancel" href="MainApp.html">cancel</a>
     </div>
+    <script type="text/javascript" src="load.js"></script>
 </body>
 
 </html>
