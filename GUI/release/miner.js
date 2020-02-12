@@ -14,7 +14,7 @@ const clicked = (e) => {
         document.getElementById("anim-off").innerHTML = `
         @keyframes unspin {
             from {
-                transform: rotate(${Math.asin(getComputedStyle(document.getElementById("arrows"))['transform'].replace(/[a-z()]/g,"").split(",")[1]) * 180/Math.PI}deg);
+                transform: rotate(${-1 * (Math.asin(getComputedStyle(document.getElementById("arrows"))['transform'].replace(/[a-z()]/g,"").split(",")[1]) * 180/Math.PI)}deg);
             }
             to {
                 transform: rotate(0deg);

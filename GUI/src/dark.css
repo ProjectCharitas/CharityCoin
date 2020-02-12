@@ -6,14 +6,15 @@ body {
    color: white;
 }
 
-.link{
+.link {
    color: white;
 }
 
-#save, #cancel{
+#save,
+#cancel {
    text-shadow: 0.1rem 0.1rem black
- }
+}
 
- .home-button {
-    fill: white;
- }
+.home-button {
+   fill: white;
+}

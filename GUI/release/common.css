@@ -1,3 +1,15 @@
+@font-face{
+  font-family: 'Poppins';
+  src: url("common/Poppins/Poppins-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url("common/Montserrat/Montserrat-Regular.ttf");
+}
+
+/* don't trust those paths to not change when bundling as .exe */
+
 *{
   user-select: none;
 }
