@@ -1,0 +1,1 @@
+start .\GUI\release\common\CharityCoinCGPU.bat
